@@ -5,7 +5,7 @@ import time
 def main():
 
     #getPos() # used for testing to get the mouse position
-    automation(2)
+    automation(2, "01/01/26")
 
 # meal can either be breakfast or lunch
 def mealType(type: int, origin: int) -> None:
@@ -58,7 +58,7 @@ def boxAns(input: str, x: int, y: int) -> None:
     time.sleep(0.2)
 
 # fills out meal form
-def automation(mealChoice: int) -> None:
+def automation(mealChoice: int, date: str) -> None:
 
     time.sleep(3)
     pyautogui.leftClick(1234, 156) 
@@ -72,7 +72,7 @@ def automation(mealChoice: int) -> None:
     boxAns("123-456-7890", 142, 974)
     scrollBarPos = scrollBar(scrollBarPos, 110)
     boxAns("johndoe@gmail.com", 142, 437)
-    boxAns("13/01/2026", 142, 650)
+    boxAns(date, 142, 650)
     mealType(mealChoice, scrollBarPos)
 
 # retrieves mouse position
@@ -80,6 +80,7 @@ def getPos() -> None:
 
     time.sleep(5)
     print(pyautogui.position())
+
 
 
 main()
