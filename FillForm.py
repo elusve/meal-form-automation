@@ -62,7 +62,7 @@ def fillForm(date: str, mealType: int) -> None:
         case _:
             driver.quit()
     
-    #
+    # action on elements
     firstNameBox.send_keys(FIRST_NAME)
     lastNameBox.send_keys(LAST_NAME)
     stuNumBox.send_keys(STU_NUM)
@@ -88,4 +88,5 @@ def fillForm(date: str, mealType: int) -> None:
 
 
     
+
 
