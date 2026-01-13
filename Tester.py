@@ -1,3 +1,4 @@
+from FillForm import COOKIES_CLICK as cookiesClick
 from FillForm import INFO_ACTIONS as infoActions
 from FillForm import MEAL_ACTIONS as mealActions
 from FillForm import fillForm
@@ -11,6 +12,9 @@ def testConstants(actions):
             assert "value" in action
 
 # whitebox test
+cookiesList = []
+cookiesList.append(cookiesClick)
+testConstants(cookiesList)
 testConstants(infoActions)
 testConstants(mealActions["breakfast"])
 testConstants(mealActions["lunch"])
