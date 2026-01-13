@@ -44,6 +44,26 @@ MEAL_ACTIONS = {
     {"type": "click", "by": By.CSS_SELECTOR, "locator": "#choice_3_32_0"} # beverage
     ]
 }
+COOKIES_CLICK = {"type": "click", "by": By.CSS_SELECTOR, "locator": ".cu-cookie-button button"} # agree to cookies button
+
+
+# agree to cookies
+def cookiesClick(driver):
+    driver.get("https://dining.carleton.ca/boxed-meals/")
+    waitAction(driver, COOKIES_CLICK)
+
+
+# create session
+def setup(): 
+    driver = webdriver.Chrome()
+    return driver
+
+
+# quit session
+def teardown(driver):
+    input("quit")
+    driver.quit()
+
 
 # removed time.sleep and used selenium's expected conditions method and explicit waits method .
 def waitAction(driver, action):
@@ -61,28 +81,17 @@ def waitAction(driver, action):
     
 
 # fills in form for you
-def fillForm(mealType: str) -> None:
+def fillForm(driver, mealType: str) -> None:
     mealType = mealType.lower().strip()
     if mealType not in MEAL_ACTIONS: # input not in ["breakfast", "lunch", "dinner"]
         raise ValueError("Unknown meal type: " + mealType)
-
-    driver = webdriver.Chrome()
+    
     driver.get("https://dining.carleton.ca/boxed-meals/")
-
-    for action in INFO_ACTIONS:
-        waitAction(driver, action)
 
     for action in MEAL_ACTIONS[mealType]:
         waitAction(driver, action)
 
-    input("quit")
-    driver.quit()
+    for action in INFO_ACTIONS:
+        waitAction(driver, action)
 
-
-
-
-
-
-
-    
-
+    input("pause")
