@@ -88,10 +88,10 @@ def fillForm(driver, mealType: str) -> None:
     
     driver.get("https://dining.carleton.ca/boxed-meals/")
 
-    for action in INFO_ACTIONS:
+    for action in MEAL_ACTIONS[mealType]:
         waitAction(driver, action)
 
-    for action in MEAL_ACTIONS[mealType]:
+    for action in INFO_ACTIONS:
         waitAction(driver, action)
 
     input("pause")
