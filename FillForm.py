@@ -10,7 +10,7 @@ INFO_ACTIONS = [
     {"type": "input", "by": By.ID, "locator": "input_3_2", "value": "123456789"}, # student number
     {"type": "input", "by": By.ID, "locator": "input_3_3", "value": "123-456-7890"}, # phone number
     {"type": "input", "by": By.ID, "locator": "input_3_4", "value": "johndoe@gmail.com"}, # email
-    {"type": "input", "by": By.ID, "locator": "input_3_5", "value": "01/01/26"} # date
+    {"type": "input", "by": By.ID, "locator": "input_3_5", "value": "01/01/2026"} # date
 ]
 MEAL_ACTIONS = {
     "breakfast": [
@@ -47,6 +47,12 @@ MEAL_ACTIONS = {
 COOKIES_CLICK = {"type": "click", "by": By.CSS_SELECTOR, "locator": ".cu-cookie-button button"} # agree to cookies button
 
 
+# update the date in global scope
+def updateDate(newDate: str):
+    global INFO_ACTIONS
+    INFO_ACTIONS[5]["value"] = newDate
+
+
 # agree to cookies
 def cookiesClick(driver):
     driver.get("https://dining.carleton.ca/boxed-meals/")
@@ -61,7 +67,6 @@ def setup():
 
 # quit session
 def teardown(driver):
-    input("quit")
     driver.quit()
 
 
