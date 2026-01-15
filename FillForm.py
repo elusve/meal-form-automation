@@ -3,54 +3,12 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
-# constants feel free to change/personalize
-INFO_ACTIONS = [
-    {"type": "input", "by": By.ID, "locator": "input_3_1_3", "value": "John"}, # first name
-    {"type": "input", "by": By.ID, "locator": "input_3_1_6", "value": "Doe"}, # last name
-    {"type": "input", "by": By.ID, "locator": "input_3_2", "value": "123456789"}, # student number
-    {"type": "input", "by": By.ID, "locator": "input_3_3", "value": "123-456-7890"}, # phone number
-    {"type": "input", "by": By.ID, "locator": "input_3_4", "value": "johndoe@gmail.com"}, # email
-    {"type": "input", "by": By.ID, "locator": "input_3_5", "value": "01/01/26"} # date
-]
-MEAL_ACTIONS = {
-    "breakfast": [
-    {"type": "click", "by": By.CSS_SELECTOR, "locator": "#choice_3_46_0"}, # meal plan
-    {"type": "click", "by": By.CSS_SELECTOR, "locator": "#choice_3_6_0"}, # meal type
-    {"type": "click", "by": By.CSS_SELECTOR, "locator": "#choice_3_43_0"}, # entree
-    {"type": "click", "by": By.CSS_SELECTOR, "locator": "#choice_3_45_1"}, # side 1
-    {"type": "click", "by": By.CSS_SELECTOR, "locator": "#choice_3_48_4"}, # side 2
-    {"type": "click", "by": By.CSS_SELECTOR, "locator": "#choice_3_37_0"}, # dessert
-    {"type": "click", "by": By.CSS_SELECTOR, "locator": "#choice_3_33_1"}, # fruit
-    {"type": "click", "by": By.CSS_SELECTOR, "locator": "#choice_3_34_1"} # beverage
-    ],
-    "lunch": [
-    {"type": "click", "by": By.CSS_SELECTOR, "locator": "#choice_3_46_0"}, # meal plan
-    {"type": "click", "by": By.CSS_SELECTOR, "locator": "#choice_3_6_1"}, # meal type
-    {"type": "click", "by": By.CSS_SELECTOR, "locator": "#choice_3_49_0"}, # entree
-    {"type": "click", "by": By.CSS_SELECTOR, "locator": "#choice_3_29_2"}, # side 1
-    {"type": "click", "by": By.CSS_SELECTOR, "locator": "#choice_3_30_1"}, # side 2
-    {"type": "click", "by": By.CSS_SELECTOR, "locator": "#choice_3_31_1"}, # dessert
-    {"type": "click", "by": By.CSS_SELECTOR, "locator": "#choice_3_36_0"}, # fruit
-    {"type": "click", "by": By.CSS_SELECTOR, "locator": "#choice_3_32_0"} # beverage
-    ],
-    "dinner": [
-    {"type": "click", "by": By.CSS_SELECTOR, "locator": "#choice_3_46_0"}, # meal plan
-    {"type": "click", "by": By.CSS_SELECTOR, "locator": "#choice_3_6_2"}, # meal type
-    {"type": "click", "by": By.CSS_SELECTOR, "locator": "#choice_3_49_0"}, # entree
-    {"type": "click", "by": By.CSS_SELECTOR, "locator": "#choice_3_29_2"}, # side 1
-    {"type": "click", "by": By.CSS_SELECTOR, "locator": "#choice_3_30_1"}, # side 2
-    {"type": "click", "by": By.CSS_SELECTOR, "locator": "#choice_3_31_1"}, # dessert
-    {"type": "click", "by": By.CSS_SELECTOR, "locator": "#choice_3_36_0"}, # fruit
-    {"type": "click", "by": By.CSS_SELECTOR, "locator": "#choice_3_32_0"} # beverage
-    ]
-}
-COOKIES_CLICK = {"type": "click", "by": By.CSS_SELECTOR, "locator": ".cu-cookie-button button"} # agree to cookies button
-
 
 # agree to cookies
 def cookiesClick(driver):
+    cookiesClick = {"type": "click", "by": By.CSS_SELECTOR, "locator": ".cu-cookie-button button"} # agree to cookies button
     driver.get("https://dining.carleton.ca/boxed-meals/")
-    waitAction(driver, COOKIES_CLICK)
+    waitAction(driver, cookiesClick)
 
 
 # create session
@@ -61,7 +19,6 @@ def setup():
 
 # quit session
 def teardown(driver):
-    input("quit")
     driver.quit()
 
 
@@ -81,17 +38,60 @@ def waitAction(driver, action):
     
 
 # fills in form for you
-def fillForm(driver, mealType: str) -> None:
+def fillForm(driver, date: str, mealType: str) -> None:
+
+    # information and meal preferences can be changed if you want
+    infoActions = [
+        {"type": "input", "by": By.ID, "locator": "input_3_1_3", "value": "John"}, # first name
+        {"type": "input", "by": By.ID, "locator": "input_3_1_6", "value": "Doe"}, # last name
+        {"type": "input", "by": By.ID, "locator": "input_3_2", "value": "123456789"}, # student number
+        {"type": "input", "by": By.ID, "locator": "input_3_3", "value": "123-456-7890"}, # phone number
+        {"type": "input", "by": By.ID, "locator": "input_3_4", "value": "johndoe@gmail.com"}, # email
+        {"type": "input", "by": By.ID, "locator": "input_3_5", "value": date} # date
+    ]
+    mealActions = {
+        "breakfast": [
+        {"type": "click", "by": By.CSS_SELECTOR, "locator": "#choice_3_46_0"}, # meal plan
+        {"type": "click", "by": By.CSS_SELECTOR, "locator": "#choice_3_6_0"}, # meal type
+        {"type": "click", "by": By.CSS_SELECTOR, "locator": "#choice_3_43_0"}, # entree
+        {"type": "click", "by": By.CSS_SELECTOR, "locator": "#choice_3_45_1"}, # side 1
+        {"type": "click", "by": By.CSS_SELECTOR, "locator": "#choice_3_48_4"}, # side 2
+        {"type": "click", "by": By.CSS_SELECTOR, "locator": "#choice_3_37_0"}, # dessert
+        {"type": "click", "by": By.CSS_SELECTOR, "locator": "#choice_3_33_1"}, # fruit
+        {"type": "click", "by": By.CSS_SELECTOR, "locator": "#choice_3_34_1"} # beverage
+        ],
+        "lunch": [
+        {"type": "click", "by": By.CSS_SELECTOR, "locator": "#choice_3_46_0"}, # meal plan
+        {"type": "click", "by": By.CSS_SELECTOR, "locator": "#choice_3_6_1"}, # meal type
+        {"type": "click", "by": By.CSS_SELECTOR, "locator": "#choice_3_49_0"}, # entree
+        {"type": "click", "by": By.CSS_SELECTOR, "locator": "#choice_3_29_2"}, # side 1
+        {"type": "click", "by": By.CSS_SELECTOR, "locator": "#choice_3_30_1"}, # side 2
+        {"type": "click", "by": By.CSS_SELECTOR, "locator": "#choice_3_31_1"}, # dessert
+        {"type": "click", "by": By.CSS_SELECTOR, "locator": "#choice_3_36_0"}, # fruit
+        {"type": "click", "by": By.CSS_SELECTOR, "locator": "#choice_3_32_0"} # beverage
+        ],
+        "dinner": [
+        {"type": "click", "by": By.CSS_SELECTOR, "locator": "#choice_3_46_0"}, # meal plan
+        {"type": "click", "by": By.CSS_SELECTOR, "locator": "#choice_3_6_2"}, # meal type
+        {"type": "click", "by": By.CSS_SELECTOR, "locator": "#choice_3_49_0"}, # entree
+        {"type": "click", "by": By.CSS_SELECTOR, "locator": "#choice_3_29_2"}, # side 1
+        {"type": "click", "by": By.CSS_SELECTOR, "locator": "#choice_3_30_1"}, # side 2
+        {"type": "click", "by": By.CSS_SELECTOR, "locator": "#choice_3_31_1"}, # dessert
+        {"type": "click", "by": By.CSS_SELECTOR, "locator": "#choice_3_36_0"}, # fruit
+        {"type": "click", "by": By.CSS_SELECTOR, "locator": "#choice_3_32_0"} # beverage
+        ]
+    }
+
     mealType = mealType.lower().strip()
-    if mealType not in MEAL_ACTIONS: # input not in ["breakfast", "lunch", "dinner"]
+    if mealType not in mealActions: # input not in ["breakfast", "lunch", "dinner"]
         raise ValueError("Unknown meal type: " + mealType)
     
     driver.get("https://dining.carleton.ca/boxed-meals/")
 
-    for action in MEAL_ACTIONS[mealType]:
+    for action in mealActions[mealType]:
         waitAction(driver, action)
 
-    for action in INFO_ACTIONS:
+    for action in infoActions:
         waitAction(driver, action)
 
-    input("pause")
+    input("pause") # gives you time to complete captcha
